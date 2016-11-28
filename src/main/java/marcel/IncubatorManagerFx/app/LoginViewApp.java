@@ -17,31 +17,28 @@ public class LoginViewApp extends Application {
 
 	private Stage stage;
 	private AnchorPane rootLayout;
-	
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
 		stage.setTitle("Apollo V1.0 by MIH");
-		
 
-//		this.stage.getIcons().add(new Image("file:resources/images/NetflixLogo.png"));
-		//this makes all stages close and the app exit when the main stage is closed
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent t) {
-                Platform.exit();
-                System.exit(0);
-            }
-        });
+			public void handle(WindowEvent t) {
+				Platform.exit();
+				System.exit(0);
+			}
+		});
 
 		initRootLayout();
 
 	}
-	
+
 	private void initRootLayout() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(LoginViewApp.class.getResource("/marcel/IncubatorManagerFx/vieww/LoginView.fxml"));
+		loader.setLocation(LoginViewApp.class.getResource("/marcel/IncubatorManagerFx/views/LoginView.fxml"));
 		rootLayout = (AnchorPane) loader.load();
-		
+
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
 
@@ -49,5 +46,9 @@ public class LoginViewApp extends Application {
 		controller.setLoginViewApp(this);
 
 		stage.show();
+	}
+
+	public static void main( String[] args ) {
+		launch(args);
 	}
 }

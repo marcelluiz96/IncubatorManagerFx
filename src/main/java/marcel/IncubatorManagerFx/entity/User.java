@@ -1,13 +1,14 @@
 package marcel.IncubatorManagerFx.entity;
 
-import java.util.List;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -31,6 +32,7 @@ private static final long serialVersionUID = 1L;
 	private boolean developer; // This is a permission allows the user to see all registered incubators in the database
 							   // It's not meant for any type of user except developers
 	
+	@ManyToMany
 	private List<Incubator> incubators;
 	
 	

@@ -24,12 +24,12 @@ public class LoginController implements Initializable {
 	
 	private LoginViewApp loginViewApp;
 	
-	private UserHibernateDAO usuarioHibernateDAO;
+	private UserHibernateDAO userHibernateDAO;
 	
 	private static User userLoggedOn;
 	
 	public LoginController() {
-		usuarioHibernateDAO = new UserHibernateDAO();
+		userHibernateDAO = new UserHibernateDAO();
 	}
 	
 	@FXML
@@ -57,7 +57,7 @@ public class LoginController implements Initializable {
 		String login = txLogin.getText();
 		String password = txPassword.getText();
 		
-		User user = usuarioHibernateDAO.findUser(login, password);
+		User user = userHibernateDAO.findUser(login, password);
 		
 		if (user != null) {
 			//Usuário encontrado
@@ -90,11 +90,11 @@ public class LoginController implements Initializable {
 	}
 
 	public UserHibernateDAO getUsuarioHibernateDAO() {
-		return usuarioHibernateDAO;
+		return userHibernateDAO;
 	}
 
 	public void setUsuarioHibernateDAO(UserHibernateDAO usuarioHibernateDAO) {
-		this.usuarioHibernateDAO = usuarioHibernateDAO;
+		this.userHibernateDAO = usuarioHibernateDAO;
 	}
 
 	public static User getUserLoggedOn() {
