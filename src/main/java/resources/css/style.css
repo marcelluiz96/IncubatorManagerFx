@@ -1,0 +1,77 @@
+.tab .tab-label {
+    -fx-skin: "com.sun.javafx.scene.control.skin.LabelSkin";
+    -fx-background-color: transparent;    
+    -fx-alignment: CENTER;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-font-size: 14px; /* all the same except this newly added one */
+}
+
+.slider .track {
+    -fx-pref-height:10;
+}
+
+.slider:vertical .track {
+    -fx-pref-width:10;
+}
+
+.slider .thumb {
+    -fx-pref-height: 20;
+    -fx-pref-width: 20;
+}
+
+.loginbg {
+	-fx-background-image: url("../images/hospitalcorridorblur.jpg");
+}
+
+.createaccbg {
+	-fx-background-image: url("../images/thewall.jpg");
+}
+
+.whitebg {
+	-fx-background-image: url("../images/whitebg.jpg");
+}
+
+.darkbg {
+	-fx-background-image: url("../images/blackie.jpg");
+}
+
+.play {
+	-fx-background-image: url('../icons/Play-48.png');
+	-fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.pause {
+	-fx-background-image: url('../icons/Pause-48.png');
+	-fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.rewind {
+	-fx-background-image: url('../icons/Rewind-48.png');
+	-fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.FastForward {
+	-fx-background-image: url('../icons/FastForward.png');
+	-fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.restart {
+	-fx-background-image: url('../icons/Restart.png');
+	-fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.slow {
+	-fx-background-image: url('../icons/Snail-48.png');
+	-fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.fast {
+	-fx-background-image: url('../icons/Turtle-48.png');
+	-fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.hospitalbg {
+-fx-background-image: url("../images/masseffecthospital.png");
+}
+
