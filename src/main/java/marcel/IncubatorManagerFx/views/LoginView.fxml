@@ -17,11 +17,11 @@
             <DropShadow height="50.65" radius="47.805" width="142.57" />
          </effect>
          <children>
-            <TextField fx:id="txLogin" layoutX="174.0" layoutY="208.0" prefHeight="38.0" prefWidth="256.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="91.0">
+            <TextField fx:id="txLogin" layoutX="133.0" layoutY="208.0" prefHeight="38.0" prefWidth="278.0" style="-fx-alignment: center;">
                <font>
                   <Font size="17.0" />
                </font></TextField>
-            <Button fx:id="btLogin" layoutX="191.0" layoutY="398.0" mnemonicParsing="false" onAction="#actionLogin" prefHeight="42.0" prefWidth="158.0" style="-fx-background-color: #66BB6A;" text="Login" textFill="WHITE">
+            <Button fx:id="btLogin" layoutX="181.0" layoutY="397.0" mnemonicParsing="false" onAction="#actionLogin" prefHeight="42.0" prefWidth="158.0" style="-fx-background-color: #66BB6A;" text="Login" textFill="WHITE">
                <effect>
                   <DropShadow />
                </effect>
@@ -29,15 +29,15 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Button>
-            <Label layoutX="80.0" layoutY="293.0" text="Senha:">
+            <Label layoutX="44.0" layoutY="293.0" text="Senha:">
                <font>
                   <Font size="28.0" />
                </font></Label>
-            <Label layoutX="84.0" layoutY="207.0" text="Login:">
+            <Label layoutX="47.0" layoutY="207.0" text="Login:">
                <font>
                   <Font size="28.0" />
                </font></Label>
-            <Button fx:id="btResetPassword" layoutX="173.0" layoutY="577.0" mnemonicParsing="false" onAction="#actionResetPassword" prefHeight="36.0" prefWidth="194.0" style="-fx-background-color: #E53935;" text="Forgot my password" textFill="WHITE">
+            <Button fx:id="btResetPassword" layoutX="164.0" layoutY="577.0" mnemonicParsing="false" onAction="#actionResetPassword" prefHeight="36.0" prefWidth="194.0" style="-fx-background-color: #E53935;" text="Forgot my password" textFill="WHITE">
                <effect>
                   <DropShadow />
                </effect>
@@ -45,7 +45,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
-            <Button fx:id="btExit" layoutX="191.0" layoutY="488.0" mnemonicParsing="false" onAction="#actionExit" prefHeight="42.0" prefWidth="158.0" style="-fx-background-color: #0288d1;" text="Exit" textFill="WHITE">
+            <Button fx:id="btExit" layoutX="181.0" layoutY="488.0" mnemonicParsing="false" onAction="#actionExit" prefHeight="42.0" prefWidth="158.0" style="-fx-background-color: #0288d1;" text="Exit" textFill="WHITE">
                <effect>
                   <DropShadow />
                </effect>
@@ -53,7 +53,7 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Button>
-            <Label layoutX="190.0" layoutY="621.0" prefHeight="26.0" prefWidth="164.0" text="v1.0 - Apache license">
+            <Label layoutX="179.0" layoutY="620.0" prefHeight="26.0" prefWidth="164.0" text="v1.0 - Apache license">
                <font>
                   <Font size="17.0" />
                </font></Label>
@@ -62,7 +62,7 @@
                   <Image url="@../../../resources/images/ufrn.jpg" />
                </image>
             </ImageView>
-            <PasswordField fx:id="txPassword" layoutX="173.0" layoutY="293.0" prefHeight="38.0" prefWidth="256.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="93.0">
+            <PasswordField fx:id="txPassword" layoutX="133.0" layoutY="294.0" prefHeight="38.0" prefWidth="278.0" style="-fx-alignment: center;">
                <font>
                   <Font size="17.0" />
                </font></PasswordField>

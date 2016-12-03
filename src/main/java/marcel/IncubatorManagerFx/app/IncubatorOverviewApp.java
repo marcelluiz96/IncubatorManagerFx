@@ -27,7 +27,7 @@ public void start(Stage primaryStage) throws Exception {
 
 private void initRootLayout() throws IOException {
 	FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(LoginViewApp.class.getResource("/marcelzael/netflixJavaFx2/view/IncubatorOverviewView.fxml"));
+			loader.setLocation(LoginViewApp.class.getResource("/marcel/IncubatorManagerFx/views/IncubatorOverviewView.fxml"));
 	rootLayout = (AnchorPane) loader.load();
 	
 	Scene scene = new Scene(rootLayout);

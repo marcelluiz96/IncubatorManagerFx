@@ -15,6 +15,9 @@ import marcel.IncubatorManagerFx.entity.User;
 public class UserHibernateDAO extends GenericHibernateDAO {
 	
 	public User findUser(String login, String password) {
+		try {
+			
+		
 		getCurrentSession().beginTransaction();
 		
 		CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
@@ -39,6 +42,11 @@ public class UserHibernateDAO extends GenericHibernateDAO {
 		if (retorno != null && !(retorno.isEmpty()))
 			return retorno.get(0);
 		else return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getCurrentSession().close();
+			return null;
+		}
 	}
 
 	public void registerUser(User user) throws Exception {

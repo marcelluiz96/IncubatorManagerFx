@@ -80,6 +80,16 @@ public class LoginController implements Initializable {
 			alert.show();	
 		}
 	}
+	
+	@FXML
+	private void actionResetPassword() {
+		
+	}
+	
+	@FXML
+	private void actionExit() {
+		
+	}
 
 	public LoginViewApp getLoginViewApp() {
 		return loginViewApp;

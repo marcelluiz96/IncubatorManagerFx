@@ -75,3 +75,23 @@
 -fx-background-image: url("../images/masseffecthospital.png");
 }
 
+.greenbt {
+	 -fx-background-color: #66BB6A;
+	 -fx-text-fill:#FFF;
+}
+
+.redbt {
+	 -fx-background-color: #E53935;
+	 -fx-text-fill:#FFF;
+}
+
+.bluebt {
+	 -fx-background-color: #0288d1;
+	 -fx-text-fill:#FFF;
+}
+
+.orangebt {
+	-fx-background-color: #FB8C00;
+	-fx-text-fill:#FFF;
+	
+}
