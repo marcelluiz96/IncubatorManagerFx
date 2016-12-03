@@ -9,12 +9,12 @@
 
 <AnchorPane prefHeight="900.0" prefWidth="1440.0" styleClass="hospitalbg" stylesheets="@../../../resources/css/style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marcel.IncubatorManagerFx.views.IncubatorOverviewController">
    <children>
-      <Label layoutY="-3.0" style="-fx-background-color: #111;" text="Minhas incubadoras" textFill="WHITE">
+      <Label layoutY="-3.0" style="-fx-background-color: #111;" text="Incubators" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="btAdminPanel" layoutX="1272.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: #3333;" text="Painel de Administrador" textFill="WHITE">
+      <Button fx:id="btAdminPanel" layoutX="1272.0" layoutY="12.0" mnemonicParsing="false" onAction="#actionManagementPanel" style="-fx-background-color: #3333;" text="Management Panel" textFill="WHITE">
          <effect>
             <DropShadow />
          </effect>

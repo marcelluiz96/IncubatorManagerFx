@@ -10,6 +10,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,7 +29,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import marcel.IncubatorManagerFx.app.IncubatorManagementApp;
 import marcel.IncubatorManagerFx.app.IncubatorOverviewApp;
 import marcel.IncubatorManagerFx.dao.IncubatorHibernateDAO;
 import marcel.IncubatorManagerFx.entity.Incubator;
@@ -44,7 +47,6 @@ public class IncubatorOverviewController implements Initializable {
 	List<Button> incubatorButtons;
 	//Panes
 	@FXML private GridPane gridPane;
-	@FXML private ScrollPane scrollPane;
 
 	IncubatorHibernateDAO incubatorDAO;
 
@@ -55,12 +57,10 @@ public class IncubatorOverviewController implements Initializable {
 	List<Label> incubatorNoise;
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+//		scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
 		incubatorDAO = new IncubatorHibernateDAO();
 		incubators = incubatorDAO.getUserIncubators(getLoggedOnUser());
-
-		loadIncubatorsOnGrid();
 
 		//Hiding the button from non-admins
 		if (!getLoggedOnUser().isDeveloper()) {
@@ -69,97 +69,17 @@ public class IncubatorOverviewController implements Initializable {
 
 	}
 
-	private void loadIncubatorsOnGrid() {
-		int colIndex = 0;
-		int rowIndex = 0;
-		int height = 283;
-
-		gridPane.getChildren().clear();
-		gridPane.setGridLinesVisible(true);
-		gridPane.setMinHeight(height);
-
-		for (Incubator incubator : incubators) {
-			Image image;
-
-			File file = new File("resources//images//babyincubator.jpg");
-			image = new Image(file.toURI().toString());
-
-			ImageView img = new ImageView(image);
-			img.setFitWidth(265);
-			img.setFitHeight(280);
-
-			ColorAdjust colorAdjust = new ColorAdjust();
-			colorAdjust.setBrightness(0.0);
-
-			img.setEffect(colorAdjust);
-
-			img.setOnMouseEntered(e -> {
-
-				Timeline fadeInTimeline = new Timeline(
-						new KeyFrame(Duration.seconds(0), 
-								new KeyValue(colorAdjust.brightnessProperty(), colorAdjust.brightnessProperty().getValue(), Interpolator.LINEAR)), 
-						new KeyFrame(Duration.seconds(0.5), new KeyValue(colorAdjust.brightnessProperty(), -0.3, Interpolator.LINEAR)
-								));
-				fadeInTimeline.setCycleCount(1);
-				fadeInTimeline.setAutoReverse(false);
-				fadeInTimeline.play();
-
-			});
-
-			Tooltip t = new Tooltip(incubator.getName());
-			Tooltip.install(img.getParent(), t);
-
-			img.setOnMouseExited(e -> {
-
-				Timeline fadeOutTimeline = new Timeline(
-						new KeyFrame(Duration.seconds(0), 
-								new KeyValue(colorAdjust.brightnessProperty(), colorAdjust.brightnessProperty().getValue(), Interpolator.LINEAR)), 
-						new KeyFrame(Duration.seconds(0.5), new KeyValue(colorAdjust.brightnessProperty(), 0, Interpolator.LINEAR)
-								));
-				fadeOutTimeline.setCycleCount(1);
-				fadeOutTimeline.setAutoReverse(false);
-				fadeOutTimeline.play();
-
-			});
-
-			img.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent event) {
-					if (event.getClickCount() == 2) {
-						//Open popup
-					}
-				}
-
-			});
-
-
-			Label labelNome = new Label(incubator.getName());
-			labelNome.setMinWidth(265);
-			labelNome.setTextAlignment(TextAlignment.CENTER);
-			labelNome.setAlignment(Pos.BOTTOM_CENTER);
-			labelNome.setContentDisplay(ContentDisplay.CENTER);
-			labelNome.setStyle("-fx-background-color: rgba(100, 100, 100, 0.7);-fx-text-fill:#FFF;-fx-font-size: 20; -fx-font-style: italic;-fx-background-radius: 2;");
-
-			GridPane.setHalignment(labelNome, HPos.CENTER);
-			GridPane.setValignment(labelNome, VPos.BOTTOM);
-
-
-			if (colIndex == 5) {
-				colIndex = 0;
-				rowIndex++;
-				height += 280;
-				gridPane.setMinHeight(height);
-			}
-			Label noiseLabel = new Label("0");
-			incubatorNoise.add(noiseLabel);
-			gridPane.add(noiseLabel, colIndex, rowIndex);
-			gridPane.add(img, colIndex, rowIndex);
-			gridPane.add(labelNome, colIndex, rowIndex);
-			colIndex++;
+	
+	@FXML
+	private void actionManagementPanel(ActionEvent event) {
+		try {
+			new IncubatorManagementApp().start(new Stage());
+			Stage stage = (Stage) btAdminPanel.getScene().getWindow();
+		    stage.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
-	
 	//TODO update labels based
 
 
@@ -198,14 +118,6 @@ public class IncubatorOverviewController implements Initializable {
 
 	public void setGridPane(GridPane gridPane) {
 		this.gridPane = gridPane;
-	}
-
-	public ScrollPane getScrollPane() {
-		return scrollPane;
-	}
-
-	public void setScrollPane(ScrollPane scrollPane) {
-		this.scrollPane = scrollPane;
 	}
 
 	public IncubatorHibernateDAO getIncubatorDAO() {

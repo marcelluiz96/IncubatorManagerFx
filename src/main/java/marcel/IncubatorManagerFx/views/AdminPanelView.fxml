@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../../../resources/css/style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@../../../resources/css/style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marcel.IncubatorManagerFx.views.AdminPanelController">
    <children>
       <AnchorPane prefHeight="900.0" prefWidth="1440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -19,7 +19,7 @@
                   <Font name="Franklin Gothic Medium" size="72.0" />
                </font>
             </Label>
-            <Button layoutX="853.0" layoutY="804.0" mnemonicParsing="false" styleClass="greenbt" text="New Incubator...">
+            <Button fx:id="btNewIncubator" layoutX="853.0" layoutY="804.0" mnemonicParsing="false" styleClass="greenbt" text="New Incubator...">
                <font>
                   <Font size="33.0" />
                </font>
@@ -31,17 +31,17 @@
             </Label>
             <Line endX="1440.0" layoutY="114.0" />
             <HBox layoutX="847.0" layoutY="67.0" />
-            <Label layoutX="846.0" layoutY="20.0" prefHeight="39.0" prefWidth="573.0" text="Hospital Name">
+            <Label fx:id="hospitalName" alignment="CENTER_RIGHT" layoutX="1069.0" layoutY="20.0" prefHeight="39.0" prefWidth="350.0" text="Hospital Name" textAlignment="RIGHT" AnchorPane.rightAnchor="25.0">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <Label layoutX="1072.0" layoutY="66.0" text="HH:MM:SS DD/MM/AAAA">
+            <Label fx:id="currentTime" layoutX="1072.0" layoutY="66.0" text="HH:MM:SS DD/MM/AAAA" AnchorPane.rightAnchor="25.0">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <LineChart layoutX="36.0" layoutY="195.0" prefHeight="464.0" prefWidth="1378.0">
+            <LineChart fx:id="lineChart" layoutX="36.0" layoutY="195.0" prefHeight="464.0" prefWidth="1378.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -49,17 +49,17 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </LineChart>
-            <Button layoutX="1175.0" layoutY="804.0" mnemonicParsing="false" styleClass="greenbt" text="New User...">
+            <Button fx:id="btNewuser" layoutX="1175.0" layoutY="804.0" mnemonicParsing="false" styleClass="greenbt" text="New User...">
                <font>
                   <Font size="33.0" />
                </font>
             </Button>
-            <Button layoutX="13.0" layoutY="831.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="270.0" styleClass="bluebt" text="Return to Overview">
+            <Button fx:id="btReturnToOverview" layoutX="13.0" layoutY="831.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="270.0" styleClass="bluebt" text="Return to Overview">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button layoutX="592.0" layoutY="685.0" mnemonicParsing="false" styleClass="orangebt" text="Alarms history...">
+            <Button fx:id="btAlarmLogs" layoutX="592.0" layoutY="685.0" mnemonicParsing="false" styleClass="orangebt" text="Alarms history...">
                <font>
                   <Font size="33.0" />
                </font>

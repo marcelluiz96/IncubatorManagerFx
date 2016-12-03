@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -33,6 +34,9 @@ private static final long serialVersionUID = 1L;
 	
 	private boolean developer; // This is a permission allows the user to see all registered incubators in the database
 							   // It's not meant for any type of user except developers
+	
+	@ManyToOne
+	private Hospital hospital;
 	
 	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Incubator> incubators;
@@ -98,6 +102,14 @@ private static final long serialVersionUID = 1L;
 
 	public long getId() {
 		return id;
+	}
+
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(Hospital hospital) {
+		this.hospital = hospital;
 	}
 	
 	
