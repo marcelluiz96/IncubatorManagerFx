@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Line?>
@@ -14,19 +14,22 @@
    <children>
       <AnchorPane prefHeight="900.0" prefWidth="1440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="11.0" layoutY="18.0" text="Apollo - Admin Panel">
+            <Label layoutX="517.0" layoutY="22.0" text="Admin Panel">
                <font>
                   <Font name="Franklin Gothic Medium" size="72.0" />
                </font>
             </Label>
-            <Button fx:id="btNewIncubator" layoutX="853.0" layoutY="804.0" mnemonicParsing="false" styleClass="greenbt" text="New Incubator...">
+            <Button fx:id="btNewIncubator" alignment="BOTTOM_CENTER" layoutX="533.0" layoutY="361.0" mnemonicParsing="false" onAction="#actionNewIncubator" prefHeight="287.0" prefWidth="386.0" styleClass="greenbt" text="New Incubator">
                <font>
                   <Font size="33.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Button>
-            <Label layoutX="14.0" layoutY="121.0" text="Today's Report">
+            <Label layoutX="644.0" layoutY="125.0" text="Statistics">
                <font>
-                  <Font size="30.0" />
+                  <Font size="41.0" />
                </font>
             </Label>
             <Line endX="1440.0" layoutY="114.0" />
@@ -41,29 +44,78 @@
                   <Font size="27.0" />
                </font>
             </Label>
-            <LineChart fx:id="lineChart" layoutX="36.0" layoutY="195.0" prefHeight="464.0" prefWidth="1378.0">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
-            <Button fx:id="btNewuser" layoutX="1175.0" layoutY="804.0" mnemonicParsing="false" styleClass="greenbt" text="New User...">
+            <Button fx:id="btNewuser" alignment="BOTTOM_CENTER" layoutX="989.0" layoutY="361.0" mnemonicParsing="false" onAction="#actionNewUser" prefHeight="287.0" prefWidth="386.0" styleClass="greenbt" text="New User">
                <font>
                   <Font size="33.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Button>
-            <Button fx:id="btReturnToOverview" layoutX="13.0" layoutY="831.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="270.0" styleClass="bluebt" text="Return to Overview">
+            <Button fx:id="btReturnToOverview" layoutX="16.0" layoutY="810.0" mnemonicParsing="false" onAction="#actionReturnToOverview" prefHeight="68.0" prefWidth="318.0" styleClass="bluebt" text="Return to Overview">
                <font>
-                  <Font size="26.0" />
+                  <Font size="31.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Button>
-            <Button fx:id="btAlarmLogs" layoutX="592.0" layoutY="685.0" mnemonicParsing="false" styleClass="orangebt" text="Alarms history...">
+            <Button fx:id="btAlarmLogs" alignment="BOTTOM_CENTER" layoutX="77.0" layoutY="361.0" mnemonicParsing="false" onAction="#actionAlarmLogs" prefHeight="287.0" prefWidth="386.0" styleClass="orangebt" text="Alarms history">
                <font>
                   <Font size="33.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Button>
+            <Label layoutX="23.0" layoutY="226.0" text="Nº Of Incubators: ">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <Line endX="1440.0" endY="150.0" layoutX="10.0" layoutY="124.0" startY="150.0" />
+            <Label layoutX="649.0" layoutY="275.0" text="Options">
+               <font>
+                  <Font size="41.0" />
+               </font>
+            </Label>
+            <Label layoutX="541.0" layoutY="226.0" text="Nº of Alarms:">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="1002.0" layoutY="224.0" text="Noise mean:">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="203.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true" styleClass="pastimg">
+               <image>
+                  <Image url="@../../../resources/images/past.png" />
+               </image></ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="653.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" styleClass="plusimg">
+               <image>
+                  <Image url="@../../../resources/images/plus.png" />
+               </image></ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1111.0" layoutY="409.0" pickOnBounds="true" preserveRatio="true" styleClass="userimg">
+               <image>
+                  <Image url="@../../../resources/images/user.png" />
+               </image></ImageView>
+            <Label layoutX="256.0" layoutY="225.0" text="Number1">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="732.0" layoutY="226.0" text="Number2">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="1189.0" layoutY="225.0" text="Number3">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

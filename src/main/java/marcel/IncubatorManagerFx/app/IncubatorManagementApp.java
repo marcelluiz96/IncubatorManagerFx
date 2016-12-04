@@ -6,8 +6,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import marcel.IncubatorManagerFx.views.AdminPanelController;
+import marcel.IncubatorManagerFx.views.CreateAccountDialogController;
+import marcel.IncubatorManagerFx.views.CreateIncubatorDialogController;
 import marcel.IncubatorManagerFx.views.IncubatorOverviewController;
 
 public class IncubatorManagementApp extends Application{
@@ -38,5 +41,63 @@ public class IncubatorManagementApp extends Application{
 //		controller.getIvLogo().setImage(new Image("file:resources/images/NetflixLogo.png"));
 
 		stage.show();
+	}
+	
+	public boolean showCreateIncubatorDialog() {
+		  try {
+			    // Load the fxml file and create a new stage for the popup
+			    FXMLLoader loader = new FXMLLoader(LoginViewApp.class.getResource("/marcel/IncubatorManagerFx/views/CreateIncubatorDialogView.fxml"));
+			    AnchorPane page = (AnchorPane) loader.load();
+			    Stage dialogStage = new Stage();
+			    dialogStage.setTitle("Edit Person");
+			    dialogStage.initModality(Modality.WINDOW_MODAL);
+			    dialogStage.initOwner(stage);
+			    Scene scene = new Scene(page);
+			    dialogStage.setScene(scene);
+
+			    // Set the person into the controller
+			    CreateIncubatorDialogController controller = loader.getController();
+			    controller.setDialogStage(dialogStage);
+			    
+
+			    // Show the dialog and wait until the user closes it
+			    dialogStage.showAndWait();
+
+			    return controller.isOkClicked();
+
+			  } catch (IOException e) {
+			    // Exception gets thrown if the fxml file could not be loaded
+			    e.printStackTrace();
+			    return false;
+			  }
+	}
+	
+	public boolean showCreateAccountDialog() {
+		  try {
+			    // Load the fxml file and create a new stage for the popup
+			    FXMLLoader loader = new FXMLLoader(LoginViewApp.class.getResource("/marcel/IncubatorManagerFx/views/CreateAccountDialogView.fxml"));
+			    AnchorPane page = (AnchorPane) loader.load();
+			    Stage dialogStage = new Stage();
+			    dialogStage.setTitle("Edit Person");
+			    dialogStage.initModality(Modality.WINDOW_MODAL);
+			    dialogStage.initOwner(stage);
+			    Scene scene = new Scene(page);
+			    dialogStage.setScene(scene);
+
+			    // Set the person into the controller
+			    CreateAccountDialogController controller = loader.getController();
+			    controller.setDialogStage(dialogStage);
+			    
+
+			    // Show the dialog and wait until the user closes it
+			    dialogStage.showAndWait();
+
+			    return controller.isOkClicked();
+
+			  } catch (IOException e) {
+			    // Exception gets thrown if the fxml file could not be loaded
+			    e.printStackTrace();
+			    return false;
+			  }
 	}
 }
