@@ -72,7 +72,8 @@ public class CreateIncubatorDialogController implements Initializable {
 
 	@FXML
 	public void cancel(ActionEvent event) {
-
+		Stage stage = (Stage) btSave.getScene().getWindow();
+		stage.close();
 	}
 
 	public User getLoggedOnUser() {

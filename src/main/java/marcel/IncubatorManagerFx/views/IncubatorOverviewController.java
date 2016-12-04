@@ -70,6 +70,8 @@ public class IncubatorOverviewController implements Initializable {
 
 	private void initializeIncubatorTable() {
 		incubators = incubatorDAO.listAll(Incubator.class); //TODO fetch user list without lazy loading
+		
+		
 
 		columnName.setCellValueFactory(cellData -> cellData.getValue().getNameColumnProperty());
 		columnUniqueCode.setCellValueFactory(cellData -> cellData.getValue().getUniqueCodeColumnProperty());

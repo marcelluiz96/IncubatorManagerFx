@@ -21,7 +21,7 @@
             </Label>
             <Button fx:id="btNewIncubator" alignment="BOTTOM_CENTER" layoutX="533.0" layoutY="361.0" mnemonicParsing="false" onAction="#actionNewIncubator" prefHeight="287.0" prefWidth="386.0" styleClass="greenbt" text="New Incubator">
                <font>
-                  <Font size="33.0" />
+                  <Font size="36.0" />
                </font>
                <effect>
                   <DropShadow />
@@ -46,7 +46,7 @@
             </Label>
             <Button fx:id="btNewuser" alignment="BOTTOM_CENTER" layoutX="989.0" layoutY="361.0" mnemonicParsing="false" onAction="#actionNewUser" prefHeight="287.0" prefWidth="386.0" styleClass="greenbt" text="New User">
                <font>
-                  <Font size="33.0" />
+                  <Font size="36.0" />
                </font>
                <effect>
                   <DropShadow />
@@ -62,7 +62,7 @@
             </Button>
             <Button fx:id="btAlarmLogs" alignment="BOTTOM_CENTER" layoutX="77.0" layoutY="361.0" mnemonicParsing="false" onAction="#actionAlarmLogs" prefHeight="287.0" prefWidth="386.0" styleClass="orangebt" text="Alarms history">
                <font>
-                  <Font size="33.0" />
+                  <Font size="36.0" />
                </font>
                <effect>
                   <DropShadow />
@@ -89,11 +89,7 @@
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="203.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true" styleClass="pastimg">
-               <image>
-                  <Image url="@../../../resources/images/past.png" />
-               </image></ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="653.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" styleClass="plusimg">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="651.0" layoutY="409.0" pickOnBounds="true" preserveRatio="true" styleClass="plusimg">
                <image>
                   <Image url="@../../../resources/images/plus.png" />
                </image></ImageView>
@@ -101,21 +97,26 @@
                <image>
                   <Image url="@../../../resources/images/user.png" />
                </image></ImageView>
-            <Label layoutX="256.0" layoutY="225.0" text="Number1">
+            <Label fx:id="lbTotalIncubators" layoutX="256.0" layoutY="225.0" text="Number1">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <Label layoutX="732.0" layoutY="226.0" text="Number2">
+            <Label fx:id="lbAlarmsToday" layoutX="732.0" layoutY="226.0" text="Number2">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <Label layoutX="1189.0" layoutY="225.0" text="Number3">
+            <Label fx:id="lbnoiseMean" layoutX="1189.0" layoutY="225.0" text="Number3">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="195.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" styleClass="pastimg">
+               <image>
+                  <Image url="@../../../resources/images/past.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

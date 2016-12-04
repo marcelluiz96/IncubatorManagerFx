@@ -4,6 +4,10 @@ package marcel.IncubatorManagerFx.views;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,9 +16,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import marcel.IncubatorManagerFx.app.IncubatorOverviewApp;
 import marcel.IncubatorManagerFx.app.LoginViewApp;
 import marcel.IncubatorManagerFx.dao.UserHibernateDAO;
@@ -48,7 +54,7 @@ public class LoginController implements Initializable {
 	private Button btResetPassword;
 
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		initializeButtonEffects();
 		
 	}
 	
@@ -89,6 +95,101 @@ public class LoginController implements Initializable {
 	@FXML
 	private void actionExit() {
 		
+	}
+	
+	private void initializeButtonEffects() {
+		ColorAdjust colorAdjust = new ColorAdjust();
+		colorAdjust.setBrightness(0.0);
+
+		btLogin.setEffect(colorAdjust);
+
+		btLogin.setOnMouseEntered(e -> {
+
+			Timeline fadeInTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust.brightnessProperty(), colorAdjust.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.35), new KeyValue(colorAdjust.brightnessProperty(), -0.2, Interpolator.LINEAR)
+							));
+			fadeInTimeline.setCycleCount(1);
+			fadeInTimeline.setAutoReverse(false);
+			fadeInTimeline.play();
+
+		});
+
+		btLogin.setOnMouseExited(e -> {
+
+			Timeline fadeOutTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust.brightnessProperty(), colorAdjust.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.5), new KeyValue(colorAdjust.brightnessProperty(), 0, Interpolator.LINEAR)
+							));
+			fadeOutTimeline.setCycleCount(1);
+			fadeOutTimeline.setAutoReverse(false);
+			fadeOutTimeline.play();
+
+		});
+		
+		ColorAdjust colorAdjust2 = new ColorAdjust();
+		colorAdjust2.setBrightness(0.0);
+		
+		btExit.setEffect(colorAdjust2);
+
+		btExit.setOnMouseEntered(e -> {
+
+			Timeline fadeInTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust2.brightnessProperty(), colorAdjust2.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.35), new KeyValue(colorAdjust2.brightnessProperty(), -0.2, Interpolator.LINEAR)
+							));
+			fadeInTimeline.setCycleCount(1);
+			fadeInTimeline.setAutoReverse(false);
+			fadeInTimeline.play();
+
+		});
+
+		btExit.setOnMouseExited(e -> {
+
+			Timeline fadeOutTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust2.brightnessProperty(), colorAdjust2.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.5), new KeyValue(colorAdjust2.brightnessProperty(), 0, Interpolator.LINEAR)
+							));
+			fadeOutTimeline.setCycleCount(1);
+			fadeOutTimeline.setAutoReverse(false);
+			fadeOutTimeline.play();
+
+		});
+		
+		ColorAdjust colorAdjust3 = new ColorAdjust();
+		colorAdjust3.setBrightness(0.0);
+		
+		btResetPassword.setEffect(colorAdjust3);
+
+		btResetPassword.setOnMouseEntered(e -> {
+
+			Timeline fadeInTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust3.brightnessProperty(), colorAdjust3.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.35), new KeyValue(colorAdjust3.brightnessProperty(), -0.2, Interpolator.LINEAR)
+							));
+			fadeInTimeline.setCycleCount(1);
+			fadeInTimeline.setAutoReverse(false);
+			fadeInTimeline.play();
+
+		});
+
+		btResetPassword.setOnMouseExited(e -> {
+
+			Timeline fadeOutTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust3.brightnessProperty(), colorAdjust3.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.5), new KeyValue(colorAdjust3.brightnessProperty(), 0, Interpolator.LINEAR)
+							));
+			fadeOutTimeline.setCycleCount(1);
+			fadeOutTimeline.setAutoReverse(false);
+			fadeOutTimeline.play();
+
+		});
 	}
 
 	public LoginViewApp getLoginViewApp() {

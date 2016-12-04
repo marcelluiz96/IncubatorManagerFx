@@ -10,7 +10,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javafx.animation.Animation;
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -28,8 +30,12 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.effect.ColorAdjust;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import marcel.IncubatorManagerFx.app.IncubatorManagementApp;
+import marcel.IncubatorManagerFx.app.IncubatorOverviewApp;
 import marcel.IncubatorManagerFx.entity.User;
 
 public class AdminPanelController implements Initializable {
@@ -43,6 +49,10 @@ public class AdminPanelController implements Initializable {
 
 	@FXML Label currentTime;
 	@FXML Label hospitalName;
+	
+	@FXML Label lbTotalIncubators;
+	@FXML Label lbAlarmsToday;
+	@FXML Label lbnoiseMean;
 
 	@FXML LineChart<String, Number> lineChart;
 
@@ -61,6 +71,7 @@ public class AdminPanelController implements Initializable {
 		hospitalName.setText(getLoggedOnUser().getHospital().getName());
 		bindTimeLabelToTime();
 		bindXYList();
+		initializeButtonEffects();
 
 		xAxis = new CategoryAxis();
 		xAxis.setLabel("X");
@@ -143,6 +154,101 @@ public class AdminPanelController implements Initializable {
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
+	
+	private void initializeButtonEffects() {
+		ColorAdjust colorAdjust = new ColorAdjust();
+		colorAdjust.setBrightness(0.0);
+
+		btAlarmLogs.setEffect(colorAdjust);
+
+		btAlarmLogs.setOnMouseEntered(e -> {
+
+			Timeline fadeInTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust.brightnessProperty(), colorAdjust.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.35), new KeyValue(colorAdjust.brightnessProperty(), -0.2, Interpolator.LINEAR)
+							));
+			fadeInTimeline.setCycleCount(1);
+			fadeInTimeline.setAutoReverse(false);
+			fadeInTimeline.play();
+
+		});
+
+		btAlarmLogs.setOnMouseExited(e -> {
+
+			Timeline fadeOutTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust.brightnessProperty(), colorAdjust.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.5), new KeyValue(colorAdjust.brightnessProperty(), 0, Interpolator.LINEAR)
+							));
+			fadeOutTimeline.setCycleCount(1);
+			fadeOutTimeline.setAutoReverse(false);
+			fadeOutTimeline.play();
+
+		});
+		
+		ColorAdjust colorAdjust2 = new ColorAdjust();
+		colorAdjust2.setBrightness(0.0);
+		
+		btNewIncubator.setEffect(colorAdjust2);
+
+		btNewIncubator.setOnMouseEntered(e -> {
+
+			Timeline fadeInTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust2.brightnessProperty(), colorAdjust2.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.35), new KeyValue(colorAdjust2.brightnessProperty(), -0.2, Interpolator.LINEAR)
+							));
+			fadeInTimeline.setCycleCount(1);
+			fadeInTimeline.setAutoReverse(false);
+			fadeInTimeline.play();
+
+		});
+
+		btNewIncubator.setOnMouseExited(e -> {
+
+			Timeline fadeOutTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust2.brightnessProperty(), colorAdjust2.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.5), new KeyValue(colorAdjust2.brightnessProperty(), 0, Interpolator.LINEAR)
+							));
+			fadeOutTimeline.setCycleCount(1);
+			fadeOutTimeline.setAutoReverse(false);
+			fadeOutTimeline.play();
+
+		});
+		
+		ColorAdjust colorAdjust3 = new ColorAdjust();
+		colorAdjust3.setBrightness(0.0);
+		
+		btNewuser.setEffect(colorAdjust3);
+
+		btNewuser.setOnMouseEntered(e -> {
+
+			Timeline fadeInTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust3.brightnessProperty(), colorAdjust3.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.35), new KeyValue(colorAdjust3.brightnessProperty(), -0.2, Interpolator.LINEAR)
+							));
+			fadeInTimeline.setCycleCount(1);
+			fadeInTimeline.setAutoReverse(false);
+			fadeInTimeline.play();
+
+		});
+
+		btNewuser.setOnMouseExited(e -> {
+
+			Timeline fadeOutTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust3.brightnessProperty(), colorAdjust3.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.5), new KeyValue(colorAdjust3.brightnessProperty(), 0, Interpolator.LINEAR)
+							));
+			fadeOutTimeline.setCycleCount(1);
+			fadeOutTimeline.setAutoReverse(false);
+			fadeOutTimeline.play();
+
+		});
+	}
 
 	@FXML
 	private void actionNewIncubator(ActionEvent event) {
@@ -156,7 +262,13 @@ public class AdminPanelController implements Initializable {
 
 	@FXML
 	private void actionReturnToOverview(ActionEvent event) {
-		incubatorManagementApp.showCreateAccountDialog();
+		try {
+			new IncubatorOverviewApp().start(new Stage());
+			Stage stage = (Stage) btReturnToOverview.getScene().getWindow();
+		    stage.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
