@@ -4,6 +4,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -30,17 +31,20 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import marcel.IncubatorManagerFx.app.IncubatorManagementApp;
 import marcel.IncubatorManagerFx.app.IncubatorOverviewApp;
+import marcel.IncubatorManagerFx.dao.IncubatorHibernateDAO;
+import marcel.IncubatorManagerFx.entity.Incubator;
+import marcel.IncubatorManagerFx.entity.Log;
 import marcel.IncubatorManagerFx.entity.User;
 
 public class AdminPanelController implements Initializable {
 
 	private IncubatorManagementApp incubatorManagementApp;
+	private IncubatorHibernateDAO incubatorDAO;
 
 	@FXML Button btNewIncubator;
 	@FXML Button btNewuser;
@@ -72,6 +76,7 @@ public class AdminPanelController implements Initializable {
 		bindTimeLabelToTime();
 		bindXYList();
 		initializeButtonEffects();
+		loadStatisticLabels();
 
 		xAxis = new CategoryAxis();
 		xAxis.setLabel("X");
@@ -250,6 +255,19 @@ public class AdminPanelController implements Initializable {
 		});
 	}
 
+	private void loadStatisticLabels() {
+		lbTotalIncubators.setText(""+incubatorDAO.listAll(Incubator.class).size());
+		lbAlarmsToday.setText(""+incubatorDAO.alarmsToday());
+		
+		List<Log> logsFromToday = incubatorDAO.logsToday();
+		double mean = 0;
+		for (Log log : logsFromToday) {
+			mean += log.getNoiseInDb();
+		}
+		mean = mean / logsFromToday.size();
+		lbnoiseMean.setText(mean + " Db");
+	}
+	
 	@FXML
 	private void actionNewIncubator(ActionEvent event) {
 		incubatorManagementApp.showCreateIncubatorDialog();
@@ -398,6 +416,14 @@ public class AdminPanelController implements Initializable {
 
 	public void setI(int i) {
 		this.i = i;
+	}
+
+	public IncubatorHibernateDAO getIncubatorDAO() {
+		return incubatorDAO;
+	}
+
+	public void setIncubatorDAO(IncubatorHibernateDAO incubatorDAO) {
+		this.incubatorDAO = incubatorDAO;
 	}
 
 

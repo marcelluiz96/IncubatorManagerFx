@@ -24,6 +24,8 @@ public class Log {
 	
 	private String incubatorName;
 	
+	private int noiseInDb;
+
 	@Enumerated(EnumType.STRING)
 	private LogType logType;
 
@@ -58,7 +60,13 @@ public class Log {
 	public void setLogType(LogType logType) {
 		this.logType = logType;
 	}
-	
+	public int getNoiseInDb() {
+		return noiseInDb;
+	}
+
+	public void setNoiseInDb(int noiseInDb) {
+		this.noiseInDb = noiseInDb;
+	}
 	
 	
 
