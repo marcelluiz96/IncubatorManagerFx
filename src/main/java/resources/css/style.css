@@ -6,6 +6,23 @@
     -fx-font-size: 14px; /* all the same except this newly added one */
 }
 
+.tab-pane *.tab-header-area *.tab-header-background {
+  -fx-background-color:transparent;
+}
+
+.tab-pane {
+  -fx-tab-min-width:120px;
+  -fx-tab-max-width:120px;
+  -fx-tab-min-height:50px;
+  -fx-tab-max-height:50px;
+}
+
+.tab {
+  -fx-font-family: Arial;
+  -fx-font-size: 18;
+}
+
+
 .slider .track {
     -fx-pref-height:10;
 }
@@ -29,6 +46,10 @@
 
 .whitebg {
 	-fx-background-image: url("../images/whitebg.jpg");
+}
+
+.lightbg {
+	-fx-background-image: url("../images/lightbg.jpg");
 }
 
 .darkbg {
@@ -76,15 +97,19 @@
 }
 
 .userimg {
--fx-background-image: url("../images/user.png");
+-fx-background-image: url("../images/userwhite.png");
 }
 
 .plusimg {
--fx-background-image: url("../images/plus.png");
+-fx-background-image: url("../images/pluswhite.png");
 }
 
 .pastimg {
--fx-background-image: url("../images/past.png");
+-fx-background-image: url("../images/pastwhite.png");
+}
+
+.statisticsimg {
+-fx-background-image: url("../images/linechartwhite.png");
 }
 
 .greenbt {
@@ -108,3 +133,10 @@
 	-fx-content-display: top;
 }
 
+.table-view .column-header{
+    -fx-font-size: 22;
+}
+
+.table-cell {
+    -fx-font-size: 16px;
+}

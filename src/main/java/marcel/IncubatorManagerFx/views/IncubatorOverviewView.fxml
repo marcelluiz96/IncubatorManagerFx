@@ -15,21 +15,21 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="btAdminPanel" layoutX="1225.0" layoutY="15.0" mnemonicParsing="false" onAction="#actionManagementPanel" styleClass="bluebt" text="Management Panel" textFill="WHITE">
+      <Button fx:id="btAdminPanel" layoutX="1204.0" layoutY="10.0" mnemonicParsing="false" onAction="#actionManagementPanel" styleClass="bluebt" text="Management Panel" textFill="WHITE">
          <effect>
             <DropShadow />
          </effect>
          <font>
-            <Font size="18.0" />
+            <Font size="23.0" />
          </font>
       </Button>
-      <TableView fx:id="tvIncubators" layoutX="593.0" layoutY="318.0" prefHeight="428.0" prefWidth="385.0" styleClass="whitebg" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="70.0">
+      <TableView fx:id="tvIncubators" fixedCellSize="40.0" layoutX="593.0" layoutY="318.0" prefHeight="428.0" prefWidth="385.0" styleClass="lightbg" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
         <columns>
           <TableColumn fx:id="columnName" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="columnUniqueCode" prefWidth="75.0" text="Unique Code" />
+          <TableColumn fx:id="columnUniqueCode" prefWidth="75.0" text="Incubator code" />
             <TableColumn fx:id="columnLocation" prefWidth="75.0" text="Location" />
-            <TableColumn fx:id="columnNoise" prefWidth="75.0" text="Noise" />
-            <TableColumn fx:id="columnStatus" prefWidth="75.0" text="Status" />
+            <TableColumn fx:id="columnNoise" prefWidth="75.0" text="Noise level" />
+            <TableColumn fx:id="columnStatus" prefWidth="75.0" text="Connection Status" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -38,5 +38,13 @@
             <DropShadow radius="25.5675" width="83.27" />
          </effect>
       </TableView>
+      <Button fx:id="btPauseMonitoring" layoutX="968.0" layoutY="10.0" mnemonicParsing="false" onAction="#actionPauseMonitoring" styleClass="redbt" text="Pause Monitoring" textFill="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

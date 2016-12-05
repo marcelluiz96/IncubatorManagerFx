@@ -1,34 +1,22 @@
 package marcel.IncubatorManagerFx.views;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
@@ -36,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import marcel.IncubatorManagerFx.app.IncubatorManagementApp;
 import marcel.IncubatorManagerFx.app.IncubatorOverviewApp;
+import marcel.IncubatorManagerFx.app.StatisticsApp;
 import marcel.IncubatorManagerFx.dao.IncubatorHibernateDAO;
 import marcel.IncubatorManagerFx.entity.Incubator;
 import marcel.IncubatorManagerFx.entity.Log;
@@ -50,6 +39,7 @@ public class AdminPanelController implements Initializable {
 	@FXML Button btNewuser;
 	@FXML Button btAlarmLogs;
 	@FXML Button btReturnToOverview;
+	@FXML Button btStatistics;
 
 	@FXML Label currentTime;
 	@FXML Label hospitalName;
@@ -57,90 +47,19 @@ public class AdminPanelController implements Initializable {
 	@FXML Label lbTotalIncubators;
 	@FXML Label lbAlarmsToday;
 	@FXML Label lbnoiseMean;
-
-	@FXML LineChart<String, Number> lineChart;
-
-	ObservableList<XYChart.Data<String, Integer>> xyList = FXCollections.observableArrayList(); //
-	ObservableList<String> xAxisCategories = FXCollections.observableArrayList(); //Categories which are displayed on the X Axis 
-
-	private Task<Date> task;
-	private XYChart.Series series;
-	private CategoryAxis xAxis;
-	private int lastObservedSize;
-	int i;
+	@FXML Label lbLogsToday;
+	@FXML Label lbHighest;
+	@FXML Label lbLowest;
 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		incubatorDAO = new IncubatorHibernateDAO();
 		hospitalName.setText(getLoggedOnUser().getHospital().getName());
 		bindTimeLabelToTime();
-		bindXYList();
 		initializeButtonEffects();
 		loadStatisticLabels();
 
-		xAxis = new CategoryAxis();
-		xAxis.setLabel("X");
-
-		final NumberAxis yAxis = new NumberAxis(); //y Axis
-		lineChart = new LineChart<>(xAxis, yAxis);
-
-		lineChart.setTitle("Incubator noise chart");
-		lineChart.setAnimated(false);
-
-		task = new Task<Date>() {
-			@Override
-			protected Date call() throws Exception {
-				while (true) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException iex) {
-						Thread.currentThread().interrupt();
-					}
-
-					if (isCancelled()) {
-						break;
-					}
-
-					updateValue(new Date());
-				}
-				return new Date();
-			}
-		};
-
-		task.valueProperty().addListener(new ChangeListener<Date>() {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-			Random random = new Random();
-
-			@Override
-			public void changed(ObservableValue<? extends Date> observable, Date oldDate, Date newDate) {
-				String strDate = dateFormat.format(newDate);
-				xAxisCategories.add(strDate);
-
-				xyList.add(new XYChart.Data(strDate, Integer.valueOf(newDate.getMinutes() + random.nextInt(1312))));
-
-			}
-		});
-
-		ExecutorService executor = Executors.newSingleThreadExecutor();
-		executor.submit(task);
-
-		xAxis.setCategories(xAxisCategories);
-
-		series = new XYChart.Series<>(xyList);
-		series.setName("Serie 001");
-
-		lineChart.getData().add(series);
-
-		i = 0;
-	}
-
-	private void bindXYList() {
-		xyList.addListener((ListChangeListener<XYChart.Data<String, Integer>>) change -> {
-			if (change.getList().size() - lastObservedSize > 10) {
-				lastObservedSize += 10;
-				xAxis.getCategories().remove(0, 10);
-			}
-		});
 	}
 
 	private void bindTimeLabelToTime() {
@@ -253,19 +172,64 @@ public class AdminPanelController implements Initializable {
 			fadeOutTimeline.play();
 
 		});
+		
+		ColorAdjust colorAdjust4 = new ColorAdjust();
+		colorAdjust4.setBrightness(0.0);
+		
+		btStatistics.setEffect(colorAdjust4);
+
+		btStatistics.setOnMouseEntered(e -> {
+
+			Timeline fadeInTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust4.brightnessProperty(), colorAdjust4.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.35), new KeyValue(colorAdjust4.brightnessProperty(), -0.2, Interpolator.LINEAR)
+							));
+			fadeInTimeline.setCycleCount(1);
+			fadeInTimeline.setAutoReverse(false);
+			fadeInTimeline.play();
+
+		});
+
+		btStatistics.setOnMouseExited(e -> {
+
+			Timeline fadeOutTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), 
+							new KeyValue(colorAdjust4.brightnessProperty(), colorAdjust4.brightnessProperty().getValue(), Interpolator.LINEAR)), 
+					new KeyFrame(Duration.seconds(0.5), new KeyValue(colorAdjust4.brightnessProperty(), 0, Interpolator.LINEAR)
+							));
+			fadeOutTimeline.setCycleCount(1);
+			fadeOutTimeline.setAutoReverse(false);
+			fadeOutTimeline.play();
+
+		});
 	}
 
 	private void loadStatisticLabels() {
-		lbTotalIncubators.setText(""+incubatorDAO.listAll(Incubator.class).size());
-		lbAlarmsToday.setText(""+incubatorDAO.alarmsToday());
+		lbTotalIncubators.setText(""+incubatorDAO.listAll(Incubator.class).size()); //Number of incubators
+		lbAlarmsToday.setText(""+incubatorDAO.alarmsToday()); //Nº of Alarms
 		
 		List<Log> logsFromToday = incubatorDAO.logsToday();
-		double mean = 0;
+		
+		lbLogsToday.setText(logsFromToday.size()+""); //Logs from today
+		
+		//Beginning calculations for the last labels
+		double average = 0;
+		int highest = Integer.MIN_VALUE;
+		int lowest = Integer.MAX_VALUE;
 		for (Log log : logsFromToday) {
-			mean += log.getNoiseInDb();
+			average += log.getNoiseInDb();
+			if (log.getNoiseInDb() > highest) highest = log.getNoiseInDb();
+			if (log.getNoiseInDb() < lowest) lowest = log.getNoiseInDb();
 		}
-		mean = mean / logsFromToday.size();
-		lbnoiseMean.setText(mean + " Db");
+		average = average / logsFromToday.size();
+		
+		BigDecimal bd = new BigDecimal(average);
+	    bd = bd.setScale(2, RoundingMode.HALF_UP);
+	    
+		lbnoiseMean.setText(bd.doubleValue() + " Db"); //Average noise
+		lbHighest.setText(highest + " Db");
+		lbLowest.setText(lowest + " Db");
 	}
 	
 	@FXML
@@ -291,7 +255,28 @@ public class AdminPanelController implements Initializable {
 
 	@FXML
 	private void actionAlarmLogs(ActionEvent event) {
-		incubatorManagementApp.showCreateAccountDialog();
+		try {
+			StatisticsApp statisticsApp = new StatisticsApp(1);
+			statisticsApp.setInitialTab(0);
+			statisticsApp.start(new Stage());
+			Stage stage = (Stage) btReturnToOverview.getScene().getWindow(); //LOG DE ALARMES AQUI
+		    stage.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void actionStatistics(ActionEvent event) {
+		try {
+			StatisticsApp statisticsApp = new StatisticsApp(1);
+			statisticsApp.setInitialTab(1);
+			statisticsApp.start(new Stage());
+			Stage stage = (Stage) btReturnToOverview.getScene().getWindow(); // CHART AQUI, ENVIAR 1
+		    stage.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public User getLoggedOnUser() {
@@ -353,71 +338,6 @@ public class AdminPanelController implements Initializable {
 	public void setHospitalName(Label hospitalName) {
 		this.hospitalName = hospitalName;
 	}
-
-	public LineChart<String, Number> getLineChart() {
-		return lineChart;
-	}
-
-	public void setLineChart(LineChart<String, Number> lineChart) {
-		this.lineChart = lineChart;
-	}
-
-	public ObservableList<XYChart.Data<String, Integer>> getXyList() {
-		return xyList;
-	}
-
-	public void setXyList(ObservableList<XYChart.Data<String, Integer>> xyList) {
-		this.xyList = xyList;
-	}
-
-	public ObservableList<String> getxAxisCategories() {
-		return xAxisCategories;
-	}
-
-	public void setxAxisCategories(ObservableList<String> xAxisCategories) {
-		this.xAxisCategories = xAxisCategories;
-	}
-
-	public Task<Date> getTask() {
-		return task;
-	}
-
-	public void setTask(Task<Date> task) {
-		this.task = task;
-	}
-
-	public XYChart.Series getSeries() {
-		return series;
-	}
-
-	public void setSeries(XYChart.Series series) {
-		this.series = series;
-	}
-
-	public CategoryAxis getxAxis() {
-		return xAxis;
-	}
-
-	public void setxAxis(CategoryAxis xAxis) {
-		this.xAxis = xAxis;
-	}
-
-	public int getLastObservedSize() {
-		return lastObservedSize;
-	}
-
-	public void setLastObservedSize(int lastObservedSize) {
-		this.lastObservedSize = lastObservedSize;
-	}
-
-	public int getI() {
-		return i;
-	}
-
-	public void setI(int i) {
-		this.i = i;
-	}
-
 	public IncubatorHibernateDAO getIncubatorDAO() {
 		return incubatorDAO;
 	}

@@ -26,8 +26,11 @@ import javafx.util.Duration;
 import marcel.IncubatorManagerFx.app.IncubatorManagementApp;
 import marcel.IncubatorManagerFx.app.IncubatorOverviewApp;
 import marcel.IncubatorManagerFx.dao.IncubatorHibernateDAO;
+import marcel.IncubatorManagerFx.dao.LogHibernateDAO;
 import marcel.IncubatorManagerFx.datamodel.IncubatorDataModel;
 import marcel.IncubatorManagerFx.entity.Incubator;
+import marcel.IncubatorManagerFx.entity.Log;
+import marcel.IncubatorManagerFx.entity.LogType;
 import marcel.IncubatorManagerFx.entity.User;
 import marcel.IncubatorManagerFx.utils.JsonReader;
 
@@ -35,10 +38,14 @@ public class IncubatorOverviewController implements Initializable {
 
 	IncubatorOverviewApp incubatorOverviewApp;
 	Timeline timeline;
+	Thread thread;
 	Task<Void> taskFetchDweetNoise;
+
+	private boolean isPaused = false;
 
 	//Layout items
 	@FXML Button btAdminPanel;
+	@FXML Button btPauseMonitoring;
 	@FXML TableView<IncubatorDataModel> tvIncubators;
 
 	//Columns
@@ -49,6 +56,7 @@ public class IncubatorOverviewController implements Initializable {
 	@FXML private TableColumn<IncubatorDataModel, Integer> columnNoise;
 
 	IncubatorHibernateDAO incubatorDAO;
+	LogHibernateDAO logDAO;
 
 	List<Incubator> incubators;
 
@@ -56,6 +64,7 @@ public class IncubatorOverviewController implements Initializable {
 		//		scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
 		incubatorDAO = new IncubatorHibernateDAO();
+		logDAO = new LogHibernateDAO();
 		incubators = incubatorDAO.getUserIncubators(getLoggedOnUser());
 
 		//Hiding the button from non-admins
@@ -70,41 +79,38 @@ public class IncubatorOverviewController implements Initializable {
 
 	private void initializeIncubatorTable() {
 		incubators = incubatorDAO.listAll(Incubator.class); //TODO fetch user list without lazy loading
-		
-		
+
+
 
 		columnName.setCellValueFactory(cellData -> cellData.getValue().getNameColumnProperty());
 		columnUniqueCode.setCellValueFactory(cellData -> cellData.getValue().getUniqueCodeColumnProperty());
 		columnLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationColumnProperty());
 		columnStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusColumnProperty());
-		
+
 		columnNoise.setCellFactory(column -> {
 			return new TableCell<IncubatorDataModel,Integer>() {
 				@Override
 				protected void updateItem(Integer item, boolean empty) {
 					super.updateItem(item, empty);
 					setGraphic(null);
-					
+
 					TableRow<IncubatorDataModel> currentRow = getTableRow();
-					
+
 					if (!isEmpty()) {
 						Integer i = Integer.valueOf(item);
-						if (i == 0)
-							setStyle("-fx-background-color:#0288d1");
-						else if(i < 35) 
-	                        setStyle("-fx-background-color:#A9CF55");
-	                    	
-	                    else if (i < 45)
-	                        setStyle("-fx-background-color:#F7E867");
-	                    else
-	                    	setStyle("-fx-background-color:#F14440");
-	                    
-	                    setText(String.valueOf(i));
-	                }
+						if(i < 35) 
+							setStyle("-fx-background-color:#A9CF55");
+						else if (i < 45)
+							setStyle("-fx-background-color:#F7E867");
+						else
+							setStyle("-fx-background-color:#F14440");
+
+						setText(String.valueOf(i));
+					}
 				}
 			};
 		});
-		
+
 		columnNoise.setCellValueFactory(cellData -> cellData.getValue().getNoiseColumnProperty().asObject());
 
 	}
@@ -128,17 +134,38 @@ public class IncubatorOverviewController implements Initializable {
 									incubator.setNoiseColumnProperty(new SimpleIntegerProperty(newNoise));		
 								}
 							}
-							incubator.setStatusColumnProperty(new SimpleStringProperty("Updated at " + new SimpleDateFormat("HH:mm:ss").format(new Date())));
+							Date date = new Date();
+							incubator.setStatusColumnProperty(new SimpleStringProperty("Updated at " + new SimpleDateFormat("HH:mm:ss").format(date)));
+
+							//Logging
+							if (newNoise != -1) {
+								Log log = new Log();
+								log.setDate(date);
+								log.setIncubatorName(incubator.getUniqueCodeColumnProperty().get());
+								log.setNoiseInDb(newNoise);
+								if (newNoise >= 60) log.setLogType(LogType.ALARM);
+								else log.setLogType(LogType.COMMON);
+								logDAO.persist(log);
+							}
 						} 
-						
-						tvIncubators.getColumns().get(3).setVisible(false);
-						tvIncubators.getColumns().get(3).setVisible(true);
-						tvIncubators.getColumns().get(4).setVisible(false);
-						tvIncubators.getColumns().get(4).setVisible(true);
+
+
 						return null;
 					}
+
+					@Override
+					protected void succeeded() {
+						for(IncubatorDataModel incubator : incubatorOverviewApp.getObservableIncubatorList()) {
+							tvIncubators.getColumns().get(3).setVisible(false);
+							tvIncubators.getColumns().get(3).setVisible(true);
+							tvIncubators.getColumns().get(4).setVisible(false);
+							tvIncubators.getColumns().get(4).setVisible(true);
+						}
+					}
 				};
-				taskFetchDweetNoise.run();
+				thread = new Thread(taskFetchDweetNoise);
+				thread.setDaemon(true);
+				thread.start();
 			}		
 		}));
 		timeline.setCycleCount(Timeline.INDEFINITE);
@@ -156,8 +183,23 @@ public class IncubatorOverviewController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	//TODO update labels based
 
+	@FXML
+	private void actionPauseMonitoring(ActionEvent event) {
+		if (!isPaused) {
+			timeline.pause();
+			btPauseMonitoring.setText("Resume Monitoring");
+			btPauseMonitoring.getStyleClass().add("greenbt");
+			btPauseMonitoring.getStyleClass().remove("redbt");
+		} else {
+			timeline.play();
+			btPauseMonitoring.setText("Pause Monitoring");
+			btPauseMonitoring.getStyleClass().add("redbt");
+			btPauseMonitoring.getStyleClass().remove("greenbt");
+		}
+		isPaused = !isPaused;
+
+	}
 
 
 	public User getLoggedOnUser() {

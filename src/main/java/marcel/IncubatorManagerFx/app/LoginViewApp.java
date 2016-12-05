@@ -21,7 +21,7 @@ public class LoginViewApp extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
-		stage.setTitle("Apollo V1.0 by MIH");
+		stage.setTitle("Luna V1.0 - Login");
 
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent t) {

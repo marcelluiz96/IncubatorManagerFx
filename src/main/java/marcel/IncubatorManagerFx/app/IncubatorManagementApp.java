@@ -21,7 +21,7 @@ public class IncubatorManagementApp extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
-		stage.setTitle("Incubator Manager");
+		stage.setTitle("Luna V1.0 - Incubator Management");
 		stage.setResizable(false);
 		
 		initRootLayout();
@@ -37,8 +37,7 @@ public class IncubatorManagementApp extends Application{
 
 		AdminPanelController controller = loader.getController();
 		controller.setIncubatorManagementApp(this);
-		
-//		controller.getIvLogo().setImage(new Image("file:resources/images/NetflixLogo.png"));
+
 
 		stage.show();
 	}

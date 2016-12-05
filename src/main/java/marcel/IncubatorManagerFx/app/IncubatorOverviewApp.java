@@ -29,7 +29,7 @@ public class IncubatorOverviewApp extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
-		stage.setTitle("Incubator Manager");
+		stage.setTitle("Luna V1.0 - Incubator Overview");
 		stage.setResizable(false);
 		//	this.stage.getIcons().add(new Image("file:resources/images/NetflixLogo.png"));
 
@@ -47,9 +47,6 @@ public class IncubatorOverviewApp extends Application {
 
 		IncubatorOverviewController controller = loader.getController();
 		controller.setIncubatorOverviewApp(this);
-
-		//	controller.getIvLogo().setImage(new Image("file:resources/images/NetflixLogo.png"));
-
 		stage.show();
 	}
 

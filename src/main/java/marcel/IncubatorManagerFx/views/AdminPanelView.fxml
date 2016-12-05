@@ -12,14 +12,14 @@
 
 <AnchorPane stylesheets="@../../../resources/css/style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marcel.IncubatorManagerFx.views.AdminPanelController">
    <children>
-      <AnchorPane prefHeight="900.0" prefWidth="1440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="900.0" prefWidth="1440.0" styleClass="lightbg" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="517.0" layoutY="22.0" text="Admin Panel">
+            <Label layoutX="544.0" layoutY="16.0" text="Admin Panel">
                <font>
                   <Font name="Franklin Gothic Medium" size="72.0" />
                </font>
             </Label>
-            <Button fx:id="btNewIncubator" alignment="BOTTOM_CENTER" layoutX="533.0" layoutY="361.0" mnemonicParsing="false" onAction="#actionNewIncubator" prefHeight="287.0" prefWidth="386.0" styleClass="greenbt" text="New Incubator">
+            <Button fx:id="btNewIncubator" alignment="BOTTOM_CENTER" layoutX="765.0" layoutY="389.0" mnemonicParsing="false" onAction="#actionNewIncubator" prefHeight="270.0" prefWidth="300.0" styleClass="greenbt" text="New Incubator">
                <font>
                   <Font size="36.0" />
                </font>
@@ -27,7 +27,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Label layoutX="644.0" layoutY="125.0" text="Statistics">
+            <Label layoutX="598.0" layoutY="125.0" text="Daily statistics">
                <font>
                   <Font size="41.0" />
                </font>
@@ -44,7 +44,7 @@
                   <Font size="27.0" />
                </font>
             </Label>
-            <Button fx:id="btNewuser" alignment="BOTTOM_CENTER" layoutX="989.0" layoutY="361.0" mnemonicParsing="false" onAction="#actionNewUser" prefHeight="287.0" prefWidth="386.0" styleClass="greenbt" text="New User">
+            <Button fx:id="btNewuser" alignment="BOTTOM_CENTER" layoutX="1125.0" layoutY="386.0" mnemonicParsing="false" onAction="#actionNewUser" prefHeight="270.0" prefWidth="300.0" styleClass="greenbt" text="New User">
                <font>
                   <Font size="36.0" />
                </font>
@@ -60,7 +60,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button fx:id="btAlarmLogs" alignment="BOTTOM_CENTER" layoutX="77.0" layoutY="361.0" mnemonicParsing="false" onAction="#actionAlarmLogs" prefHeight="287.0" prefWidth="386.0" styleClass="orangebt" text="Alarms history">
+            <Button fx:id="btAlarmLogs" alignment="BOTTOM_CENTER" layoutX="45.0" layoutY="386.0" mnemonicParsing="false" onAction="#actionAlarmLogs" prefHeight="270.0" prefWidth="300.0" styleClass="orangebt" text="Alarm Logs">
                <font>
                   <Font size="36.0" />
                </font>
@@ -68,7 +68,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Label layoutX="23.0" layoutY="226.0" text="Nº Of Incubators: ">
+            <Label layoutX="31.0" layoutY="183.0" text="No. Of Incubators: ">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>
@@ -79,44 +79,87 @@
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label layoutX="541.0" layoutY="226.0" text="Nº of Alarms:">
+            <Label layoutX="33.0" layoutY="224.0" text="Nº of Alarms:">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <Label layoutX="1002.0" layoutY="224.0" text="Noise mean:">
+            <Label layoutX="552.0" layoutY="182.0" text="Average sound:">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="651.0" layoutY="409.0" pickOnBounds="true" preserveRatio="true" styleClass="plusimg">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="838.0" layoutY="430.0" onMouseClicked="#actionNewIncubator" pickOnBounds="true" preserveRatio="true" styleClass="plusimg">
                <image>
-                  <Image url="@../../../resources/images/plus.png" />
+                  <Image url="@../../../resources/images/addwhite.png" />
                </image></ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1111.0" layoutY="409.0" pickOnBounds="true" preserveRatio="true" styleClass="userimg">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1198.0" layoutY="430.0" onMouseClicked="#actionNewUser" pickOnBounds="true" preserveRatio="true" styleClass="userimg">
                <image>
-                  <Image url="@../../../resources/images/user.png" />
+                  <Image url="@../../../resources/images/adduserwhite.png" />
                </image></ImageView>
-            <Label fx:id="lbTotalIncubators" layoutX="256.0" layoutY="225.0" text="Number1">
+            <Label fx:id="lbTotalIncubators" layoutX="289.0" layoutY="183.0" text="Number1">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <Label fx:id="lbAlarmsToday" layoutX="732.0" layoutY="226.0" text="Number2">
+            <Label fx:id="lbAlarmsToday" layoutX="288.0" layoutY="226.0" text="Number2">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <Label fx:id="lbnoiseMean" layoutX="1189.0" layoutY="225.0" text="Number3">
+            <Label fx:id="lbnoiseMean" layoutX="769.0" layoutY="182.0" text="Number3">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="195.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" styleClass="pastimg">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="121.0" layoutY="430.0" onMouseClicked="#actionAlarmLogs" pickOnBounds="true" preserveRatio="true" styleClass="pastimg">
                <image>
-                  <Image url="@../../../resources/images/past.png" />
+                  <Image url="@../../../resources/images/pastwhite.png" />
                </image>
             </ImageView>
+            <Button fx:id="btStatistics" alignment="BOTTOM_CENTER" layoutX="405.0" layoutY="386.0" mnemonicParsing="false" onAction="#actionStatistics" prefHeight="270.0" prefWidth="300.0" styleClass="bluebt" text="Statistics">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="478.0" layoutY="430.0" onMouseClicked="#actionStatistics" pickOnBounds="true" preserveRatio="true" styleClass="pastimg">
+               <image>
+                  <Image url="@../../../resources/images/statisticswhite.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="552.0" layoutY="225.0" text="Logs today:">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbLogsToday" layoutX="769.0" layoutY="225.0" text="Number3">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="1038.0" layoutY="182.0" text="Highest:">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbHighest" layoutX="1200.0" layoutY="182.0" text="Number3">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="1038.0" layoutY="235.0" text="Lowest:">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbLowest" layoutX="1200.0" layoutY="235.0" text="Number3">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
