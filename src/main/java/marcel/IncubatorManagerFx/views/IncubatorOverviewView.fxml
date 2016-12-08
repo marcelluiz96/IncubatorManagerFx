@@ -38,7 +38,7 @@
             <DropShadow radius="25.5675" width="83.27" />
          </effect>
       </TableView>
-      <Button fx:id="btPauseMonitoring" layoutX="968.0" layoutY="10.0" mnemonicParsing="false" onAction="#actionPauseMonitoring" styleClass="redbt" text="Pause Monitoring" textFill="WHITE">
+      <Button fx:id="btPauseMonitoring" layoutX="918.0" layoutY="11.0" mnemonicParsing="false" onAction="#actionPauseMonitoring" styleClass="redbt" text="Pause Monitoring" textFill="WHITE">
          <effect>
             <DropShadow />
          </effect>

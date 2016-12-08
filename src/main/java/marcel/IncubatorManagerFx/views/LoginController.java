@@ -8,6 +8,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -89,12 +90,19 @@ public class LoginController implements Initializable {
 	
 	@FXML
 	private void actionResetPassword() {
-		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Function not yet implemented");
+		alert.setHeaderText("The reset password functionality isn't adequate for usage yet");
+		alert.setContentText("Please contact the database manager, or the IT team responsible for your hospital");
+		alert.show();	
 	}
 	
 	@FXML
 	private void actionExit() {
-		
+		Platform.setImplicitExit(false);
+        loginViewApp.getStage().close();
+        Platform.exit();
+        System.exit(0);
 	}
 	
 	private void initializeButtonEffects() {

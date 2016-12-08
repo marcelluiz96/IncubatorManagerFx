@@ -14,6 +14,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,6 +51,8 @@ public class AdminPanelController implements Initializable {
 	@FXML Label lbLogsToday;
 	@FXML Label lbHighest;
 	@FXML Label lbLowest;
+	
+	Timeline timeline;
 
 
 	@Override
@@ -59,6 +62,16 @@ public class AdminPanelController implements Initializable {
 		bindTimeLabelToTime();
 		initializeButtonEffects();
 		loadStatisticLabels();
+		
+		timeline = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				loadStatisticLabels();
+			}
+		}));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
 
 	}
 
@@ -233,18 +246,19 @@ public class AdminPanelController implements Initializable {
 	}
 	
 	@FXML
-	private void actionNewIncubator(ActionEvent event) {
+	private void actionNewIncubator(Event event) {
 		incubatorManagementApp.showCreateIncubatorDialog();
 	}
 
 	@FXML
-	private void actionNewUser(ActionEvent event) {
+	private void actionNewUser(Event event) {
 		incubatorManagementApp.showCreateAccountDialog();
 	}
 
 	@FXML
-	private void actionReturnToOverview(ActionEvent event) {
+	private void actionReturnToOverview(Event event) {
 		try {
+			timeline.stop();
 			new IncubatorOverviewApp().start(new Stage());
 			Stage stage = (Stage) btReturnToOverview.getScene().getWindow();
 		    stage.close();
@@ -254,8 +268,9 @@ public class AdminPanelController implements Initializable {
 	}
 
 	@FXML
-	private void actionAlarmLogs(ActionEvent event) {
+	private void actionAlarmLogs(Event event) {
 		try {
+			timeline.stop();
 			StatisticsApp statisticsApp = new StatisticsApp(1);
 			statisticsApp.setInitialTab(0);
 			statisticsApp.start(new Stage());
@@ -267,7 +282,7 @@ public class AdminPanelController implements Initializable {
 	}
 	
 	@FXML
-	private void actionStatistics(ActionEvent event) {
+	private void actionStatistics(Event event) {
 		try {
 			StatisticsApp statisticsApp = new StatisticsApp(1);
 			statisticsApp.setInitialTab(1);

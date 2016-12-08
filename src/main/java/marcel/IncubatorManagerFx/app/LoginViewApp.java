@@ -51,4 +51,22 @@ public class LoginViewApp extends Application {
 	public static void main( String[] args ) {
 		launch(args);
 	}
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public AnchorPane getRootLayout() {
+		return rootLayout;
+	}
+
+	public void setRootLayout(AnchorPane rootLayout) {
+		this.rootLayout = rootLayout;
+	}
+	
+	
 }
